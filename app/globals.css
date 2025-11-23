@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Optimisations de performance */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimisation du rendu GPU */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Optimisation des transitions */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-enter-animation {
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+/* app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =================================
+   ANIMATIONS SPÉCIFIQUES DES CARTES 
+   =================================
+*/
+
+/* Définition de l'animation d'entrée */
+@keyframes cardEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Application de l'animation aux cartes du catalogue */
+.card-enter-animation {
+    /* * CHANGEMENT ICI : La durée passe de 0.4s à 0.8s
+     * pour une animation plus lente.
+     */
+    animation: cardEnter 0.8s ease-out forwards; 
+    /* Important pour cacher avant l'animation */
+    opacity: 0; 
+}
+
+/* =================================
+   STYLES DE LA BARRE DE DÉFILEMENT POUR LES FICHES
+   =================================
+*/
+
+/* Pour les navigateurs Webkit (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #374151; /* gray-700 */
+    border-radius: 0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #60a5fa; /* blue-400 */
+    border-radius: 7px;
+    border: 3px solid #374151;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6; /* blue-500 */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+    background: #2563eb; /* blue-600 */
+}
+
+/* Pour Firefox */
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #60a5fa #374151;
+}
+
